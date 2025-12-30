@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyoPong: Table Tennis Control with Training-Free High-Level Policies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            @apply text-3xl font-bold mb-6 text-gray-800;
+        }
+        .content-text {
+            @apply text-lg text-gray-600 leading-relaxed mb-4;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-white border-b border-gray-100 py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 tracking-tight">
+                MyoPong: Goal-Conditioned Synergistic Action and Latent Exploration for Musculoskeletal Table Tennis Control with Training-Free High-Level Policies
+            </h1>
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-2 text-base font-semibold text-gray-800">
+                <a href="https://rendyalfons.us" target="_blank" class="hover:text-blue-600 transition">Alfonsus Rodriques Rendy</a>
+                <a href="https://edutjie.net" target="_blank" class="hover:text-blue-600 transition">Eduardus Tjitrahardja</a>
+                <span>Valentino Prasetya</span>
+            </div>
+            <p class="text-gray-500 text-sm mb-6">
+                Department of Computer Science and Technology, Tsinghua University
+            </p>
+            
+            <p class="text-gray-400 italic mb-8 text-sm">2025-2026 Fall Machine Learning Poster Symposium</p>
+            
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#" class="inline-flex items-center bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                    <i class="fas fa-file-alt mr-2"></i> Paper
+                </a>
+                <a href="poster.pdf" target="_blank" class="inline-flex items-center bg-gray-800 text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-700 transition">
+                    <i class="fas fa-image mr-2"></i> Poster
+                </a>
+                <a href="#" class="inline-flex items-center bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition">
+                    <i class="fas fa-file-powerpoint mr-2"></i> Slides
+                </a>
+                <a href="https://github.com/alfonsusrr/MyoPong" target="_blank" class="inline-flex items-center bg-gray-200 text-gray-800 px-5 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
+                    <i class="fab fa-github mr-2"></i> Code
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+
+        <!-- Hero Video -->
+        <section class="mb-12">
+            <div class="w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex items-center justify-center">
+                <p class="text-gray-400 font-medium">Video Demonstration (Coming Soon)</p>
+            </div>
+        </section>
+
+        <!-- Abstract -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900 text-center">Abstract</h2>
+            <p class="text-base text-gray-600 leading-relaxed text-justify">
+                Controlling bio-inspired musculoskeletal systems (MSK) remains a significant challenge in robotics due to their high dimensionality, overactuated nature, and the sparse rewards typical of complex tasks like table tennis. We introduces MyoPong, a framework designed to tackle the MyoChallenge Table-Tennis task using a musculoskeletal model (myoArm and myoTorso) with up to 210 muscles. To overcome the challenges of sparse rewards and high dimensionality, the system combines a training-free, physics-based high-level planner with a low-level PPO actor integrated with muscle synergy extraction and latent exploration (the Lattice method). Experimental results show that while standard PPO baselines fail completely, the proposed hierarchical architecture achieves a near-optimal 94% success rate. The findings demonstrate that combining hierarchical structures with inductive biases in the action and exploration spaces is essential for mastering musculoskeletal control, with the Lattice-based approach emerging as the most energy-efficient solution for balancing task success and minimal control effort.
+            </p>
+        </section>
+
+        <!-- Musculoskeletal Control: Challenges and Opportunities -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">Musculoskeletal Control: Challenges and Opportunities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-project-diagram"></i></div>
+                    <h3 class="font-bold text-gray-800 mb-2">High Dimensionality</h3>
+                    <p class="text-sm text-gray-600">The myoArm (63 muscles) and myoTorso (210 muscles) create a massive action space that is difficult to explore efficiently.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-link"></i></div>
+                    <h3 class="font-bold text-gray-800 mb-2">Overactuated System</h3>
+                    <p class="text-sm text-gray-600">Redundant muscle groups (overactuation) require complex coordination to achieve stable movements.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-star"></i></div>
+                    <h3 class="font-bold text-gray-800 mb-2">Sparse Rewards</h3>
+                    <p class="text-sm text-gray-600">Table tennis tasks offer few rewards until a successful return is made, hindering standard RL progress.</p>
+                </div>
+            </div>
+            <p class="content-text text-base mb-6">
+                The <strong>MyoChallenge Table-Tennis task</strong> serves as our primary motivation, requiring an agent to control a musculoskeletal model to consistently return ping-pong balls launched at varying velocities and positions.
+            </p>
+            <div class="bg-blue-600 text-white p-6 rounded-xl shadow-md">
+                <h3 class="font-bold mb-3 flex items-center"><i class="fas fa-lightbulb mr-2 text-yellow-300"></i> Solutions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm font-medium">
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-blue-200"></i> Muscle Synergy Extraction</div>
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-blue-200"></i> Latent Space Exploration</div>
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-blue-200"></i> Goal-Oriented Hierarchy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Goal-Conditioned Hierarchical Model -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">Goal-Conditioned Hierarchical Model</h2>
+            <div class="mb-8">
+                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                    <img src="images/hierarchical_arch.png" alt="Hierarchical Architecture Diagram" class="w-full rounded-lg">
+                </div>
+            </div>
+            <div>
+                <p class="content-text text-base">
+                    Our framework utilizes a hierarchical architecture to decouple complex task strategy from low-level muscle control. The high-level policy focuses on "where" and "how" the paddle should hit the ball, while the low-level policy focuses on "how" the muscles should move to reach that goal.
+                </p>
+                <ul class="space-y-3 mt-4">
+                    <li class="flex items-start"><i class="fas fa-chevron-right text-blue-500 mt-1 mr-2"></i> <span><strong>High-Level:</strong> Physics-based trajectory planning.</span></li>
+                    <li class="flex items-start"><i class="fas fa-chevron-right text-blue-500 mt-1 mr-2"></i> <span><strong>Low-Level:</strong> Goal-conditioned PPO agent.</span></li>
+                    <li class="flex items-start"><i class="fas fa-chevron-right text-blue-500 mt-1 mr-2"></i> <span><strong>Communication:</strong> Paddle target state updated every k steps.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Model-based High Level Policy -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">Model-based High Level Policy</h2>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                <p class="content-text text-base mb-6">
+                    The training-free High-Level Policy (HLP) guides the agent using analytical ball kinematics. By predicting the ball's trajectory, the HLP calculates the optimal paddle position and orientation target required for a successful return.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-600">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h4 class="font-bold text-gray-800 mb-1">Analytical Derivation</h4>
+                        Predicts impact points based on kinematics to derive 6-DOF paddle targets.
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h4 class="font-bold text-gray-800 mb-1">Step-Wise Guidance</h4>
+                        Calculates new targets every <em>k</em> steps to provide a reachable path for the low-level policy.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extracting Muscle Synergy -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">Extracting Muscle Synergy</h2>
+            <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-xl">
+                <p class="text-base text-gray-300 mb-6 leading-relaxed">
+                    Inspired by biological motor control, we extract dominant co-activation patterns (synergies) to stabilize the agent. By reducing the effective action space, the agent can focus on functional movements rather than individual muscle activations.
+                </p>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <span class="bg-blue-600 text-xs px-2 py-1 rounded">PCA</span>
+                        <span class="text-gray-400 font-bold">+</span>
+                        <span class="bg-green-600 text-xs px-2 py-1 rounded">ICA</span>
+                    </div>
+                    <p class="text-sm text-gray-400 italic">"Trajectories are collected and decomposed into a synergy matrix <strong>S</strong>. The final action is a linear combination of synergistic and raw muscle actions."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Optimizing Exploration Space -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">Optimizing Exploration Space</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i class="fas fa-braille mr-2 text-blue-500"></i> Lattice Method</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        Standard Gaussian noise is insufficient for high-dimensional MSK control. We implement the Lattice method using generalized time-correlated noise for structured exploration.
+                    </p>
+                    <div class="text-xs font-mono bg-gray-50 p-3 rounded text-gray-700">
+                        a = (W + P<sub>o</sub> + WP<sub>c</sub>) x
+                    </div>
+                </div>
+                <div class="flex-1 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i class="fas fa-vial mr-2 text-blue-500"></i> Structured Perturbations</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        We add learnable perturbation matrices in both muscle-space (output) and latent-space (context), enabling the agent to explore coordinated movements over time.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl text-center mb-10">Results</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">Training Rewards</h3>
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
+                    <img src="results/training_reward.png" alt="Training Rewards" class="w-full rounded-lg">
+                </div>
+                <p class="text-xs text-center text-gray-400 mt-4">PPO baselines failed completely, while hierarchical models with structured exploration achieved high performance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">High-Level Policy Eval</h3>
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
+                        <img src="results/hlp_eval.png" alt="HLP Evaluation" class="w-full rounded-lg">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4 text-center">The physics-based HLP achieves 91.5% success on the hardest difficulty levels.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">Final Evaluation</h3>
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
+                        <img src="results/final_eval.png" alt="Final Evaluation" class="w-full rounded-lg">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4 text-center">Hierarchical models with Synergy or Lattice achieve a near-optimal ~94% success rate.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="mb-12 bg-gray-900 text-white p-8 rounded-2xl shadow-lg">
+            <h2 class="text-xl font-bold mb-6 flex items-center">
+                <i class="fas fa-lightbulb mr-3 text-yellow-400"></i> Key Findings
+            </h2>
+            <ul class="space-y-4 text-gray-300 text-base">
+                <li class="flex items-start">
+                    <span class="text-white font-semibold mr-2 min-w-[140px]">Inductive Bias:</span>
+                    <span>Muscle Synergy & Lattice exploration are essential for mastering complex MSK systems.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-white font-semibold mr-2 min-w-[140px]">Hierarchy:</span>
+                    <span>Optimized action or exploration spaces are required for the hierarchical architecture to function effectively.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-white font-semibold mr-2 min-w-[140px]">Lattice Method:</span>
+                    <span>Offers the best balance of task success and minimal control effort.</span>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-50 border-t border-gray-100 py-10 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-gray-500 text-sm mb-4">
+                <i class="fas fa-envelope mr-2"></i> 
+                jixg25@mails.tsinghua.edu.cn, xhp25@mails.tsinghua.edu.cn, cbq25@mails.tsinghua.edu.cn
+            </p>
+            <p class="text-gray-400 text-xs font-medium uppercase tracking-widest">&copy; 2025 MyoPong Project Team</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
