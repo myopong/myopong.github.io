@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyoPong: Table Tennis Control with Training-Free High-Level Policies</title>
+    <title>MyoPong: Table Tennis Control with Training-Free High-Level Policy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- KaTeX for LaTeX math -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -47,7 +51,7 @@
                 <a href="poster.pdf" target="_blank" class="inline-flex items-center bg-gray-800 text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-700 transition">
                     <i class="fas fa-image mr-2"></i> Poster
                 </a>
-                <a href="#" class="inline-flex items-center bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition">
+                <a href="https://docs.google.com/presentation/d/1De7Lu-FLRBTDBbWex9SmLbfuHvYeMOFJ/edit?usp=sharing&ouid=116787451386921303331&rtpof=true&sd=true" class="inline-flex items-center bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition">
                     <i class="fas fa-file-powerpoint mr-2"></i> Slides
                 </a>
                 <a href="https://github.com/alfonsusrr/MyoPong" target="_blank" class="inline-flex items-center bg-gray-200 text-gray-800 px-5 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
@@ -61,8 +65,8 @@
 
         <!-- Hero Video -->
         <section class="mb-12">
-            <div class="w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex items-center justify-center">
-                <p class="text-gray-400 font-medium">Video Demonstration (Coming Soon)</p>
+            <div class="w-full rounded-2xl overflow-hidden border border-gray-100 bg-gray-100">
+                <video class="w-full block" src="./samples/combined.mp4" autoplay muted loop playsinline></video>
             </div>
         </section>
 
@@ -78,26 +82,26 @@
         <section class="mb-16">
             <h2 class="section-title text-2xl">Musculoskeletal Control: Challenges and Opportunities</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div class="bg-white p-6 rounded-xl border border-gray-100">
                     <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-project-diagram"></i></div>
                     <h3 class="font-bold text-gray-800 mb-2">High Dimensionality</h3>
                     <p class="text-sm text-gray-600">The myoArm (63 muscles) and myoTorso (210 muscles) create a massive action space that is difficult to explore efficiently.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div class="bg-white p-6 rounded-xl border border-gray-100">
                     <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-link"></i></div>
                     <h3 class="font-bold text-gray-800 mb-2">Overactuated System</h3>
                     <p class="text-sm text-gray-600">Redundant muscle groups (overactuation) require complex coordination to achieve stable movements.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div class="bg-white p-6 rounded-xl border border-gray-100">
                     <div class="text-blue-500 mb-4 text-2xl"><i class="fas fa-star"></i></div>
                     <h3 class="font-bold text-gray-800 mb-2">Sparse Rewards</h3>
                     <p class="text-sm text-gray-600">Table tennis tasks offer few rewards until a successful return is made, hindering standard RL progress.</p>
                 </div>
             </div>
             <p class="content-text text-base mb-6">
-                The <strong>MyoChallenge Table-Tennis task</strong> serves as our primary motivation, requiring an agent to control a musculoskeletal model to consistently return ping-pong balls launched at varying velocities and positions.
+                The <strong>MyoChallenge Table-Tennis task</strong> (<a href="#ref-1" class="text-blue-600 hover:underline">MyoSuite [1]</a>) serves as our primary motivation, requiring an agent to control a musculoskeletal model to consistently return ping-pong balls launched at varying velocities and positions.
             </p>
-            <div class="bg-blue-600 text-white p-6 rounded-xl shadow-md">
+            <div class="bg-blue-600 text-white p-6 rounded-xl">
                 <h3 class="font-bold mb-3 flex items-center"><i class="fas fa-lightbulb mr-2 text-yellow-300"></i> Solutions</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm font-medium">
                     <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-blue-200"></i> Muscle Synergy Extraction</div>
@@ -111,7 +115,7 @@
         <section class="mb-16">
             <h2 class="section-title text-2xl">Goal-Conditioned Hierarchical Model</h2>
             <div class="mb-8">
-                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="bg-white p-4 rounded-2xl border border-gray-200">
                     <img src="images/hierarchical_arch.png" alt="Hierarchical Architecture Diagram" class="w-full rounded-lg">
                 </div>
             </div>
@@ -130,19 +134,124 @@
         <!-- Model-based High Level Policy -->
         <section class="mb-16">
             <h2 class="section-title text-2xl">Model-based High Level Policy</h2>
-            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-                <p class="content-text text-base mb-6">
+            
+            <!-- Row 1: Text -->
+            <div class="mb-8">
+                <p class="content-text text-base">
                     The training-free High-Level Policy (HLP) guides the agent using analytical ball kinematics. By predicting the ball's trajectory, the HLP calculates the optimal paddle position and orientation target required for a successful return.
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-600">
-                    <div class="border-l-4 border-blue-500 pl-4">
-                        <h4 class="font-bold text-gray-800 mb-1">Analytical Derivation</h4>
-                        Predicts impact points based on kinematics to derive 6-DOF paddle targets.
+            </div>
+
+            <!-- Row 2: Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Col 1: Trajectory Prediction -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wider flex items-center">
+                        <i class="fas fa-calculator mr-2 text-blue-500"></i> Trajectory Prediction
+                    </h3>
+                    <div class="text-sm space-y-4 text-gray-600">
+                        <div>
+                            <p class="mb-2">Impact time is determined by the distance to the paddle's X-plane:</p>
+                            <div class="bg-gray-50 p-1.5 rounded-lg text-center">
+                                \[ t_{imp} = \frac{p_x - b_x}{v_x} \]
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1">Z-velocity considers the ball bouncing with table elasticity \(e\):</p>
+                            <div class="bg-gray-50 p-1.5 rounded-lg text-center">
+                                \[ v_{z,bounce} = -e(v_z - gt_{hit}) \]
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1">Collision position is predicted considering gravity and table height:</p>
+                            <div class="bg-gray-50 p-1.5 rounded-lg text-center">
+                                \[ \begin{cases} x_{pred} = p_x \\ y_{pred} = y_0 + v_y t_{imp} \\ z_{pred} = z_{table} + v_{z,bounce}\Delta t - \frac{1}{2}g\Delta t^2 \end{cases} \]
+                            </div>
+                        </div>
                     </div>
-                    <div class="border-l-4 border-blue-500 pl-4">
-                        <h4 class="font-bold text-gray-800 mb-1">Step-Wise Guidance</h4>
-                        Calculates new targets every <em>k</em> steps to provide a reachable path for the low-level policy.
+                </div>
+
+                <!-- Col 2: Orientation Control + Illustration -->
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 space-y-4">
+                        <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wider flex items-center">
+                            <i class="fas fa-compass mr-2 text-blue-500"></i> Orientation Control
+                        </h3>
+                        <div class="text-sm space-y-4 text-gray-600">
+                            <p>
+                                The optimal normal vector \( \mathbf{n} \) is the unit bisector between the incoming ball direction \( \mathbf{d}_{in} \) and the desired return direction \( \mathbf{d}_{out} \) to the target \( \mathbf{T} \).
+                            </p>
+                            <div class="bg-gray-50 p-2 rounded-lg font-mono space-y-1">
+                                <div>\[ \mathbf{d}_{out} = \text{normalize}(\mathbf{T} - \mathbf{P}_{pred}) \]</div>
+                                <div>\[ \mathbf{d}_{in} = \text{normalize}(\mathbf{V}_{pred}) \]</div>
+                                <div>\[ \mathbf{n}_{ideal} = \text{normalize}(\mathbf{d}_{out} - \mathbf{d}_{in}) \]</div>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <!-- Illustration Image -->
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100">
+                        <img src="images/pong.png" alt="Pong Physics Illustration" class="w-full rounded-lg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Validation Result Box -->
+            <div class="bg-blue-900 text-white rounded-3xl p-8 mb-8">
+                <div class="flex flex-col md:flex-row gap-10 items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-vial mr-3 text-blue-300"></i> High-Level Policy Validation
+                        </h3>
+                        <p class="text-blue-100 text-sm mb-6 leading-relaxed">
+                            The physics-based high-level planner was tested in isolation in a simplified 6-DOF paddle control environment to verify the reliability of the heuristic policy.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-sm"><i class="fas fa-check-circle mr-2 text-green-400"></i> Controls paddle motion in 6 DOF (position + orientation)</li>
+                            <li class="flex items-center text-sm"><i class="fas fa-check-circle mr-2 text-green-400"></i> Adjusts control near impact to reduce jitter</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="w-full md:w-80 space-y-4">
+                        <!-- Fixed Velocity -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                                <span>Fixed Velocity</span>
+                                <span>~100%</span>
+                            </div>
+                            <div class="w-full bg-blue-800 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <!-- Random Velocity -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                                <span>Random Velocity</span>
+                                <span>~95%</span>
+                            </div>
+                            <div class="w-full bg-blue-800 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <!-- Random Friction -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                                <span>Random Friction</span>
+                                <span>91.5%</span>
+                            </div>
+                            <div class="w-full bg-blue-800 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 91.5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4: Pong Trajectory GIF -->
+            <div class="bg-white p-2 rounded-2xl border border-gray-100 overflow-hidden">
+                <img src="samples/pong_only.gif" alt="HLP Demonstration" class="w-full block rounded-xl">
+                <div class="p-3">
+                    <p class="text-xs text-center text-gray-400 italic">Analytical trajectory prediction for 6-DOF paddle targets</p>
                 </div>
             </div>
         </section>
@@ -150,17 +259,75 @@
         <!-- Extracting Muscle Synergy -->
         <section class="mb-16">
             <h2 class="section-title text-2xl">Extracting Muscle Synergy</h2>
-            <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-xl">
-                <p class="text-base text-gray-300 mb-6 leading-relaxed">
-                    Inspired by biological motor control, we extract dominant co-activation patterns (synergies) to stabilize the agent. By reducing the effective action space, the agent can focus on functional movements rather than individual muscle activations.
-                </p>
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <span class="bg-blue-600 text-xs px-2 py-1 rounded">PCA</span>
-                        <span class="text-gray-400 font-bold">+</span>
-                        <span class="bg-green-600 text-xs px-2 py-1 rounded">ICA</span>
+            
+            <!-- Row 1: Text and Extraction Diagram -->
+            <div class="flex flex-col lg:flex-row gap-10 items-start mb-10">
+                <!-- Left: Text and Methodology -->
+                <div class="flex-1 space-y-8 order-2 lg:order-1">
+                    <div class="prose prose-slate">
+                        <p class="content-text text-base">
+                            Inspired by biological motor control, we extract dominant co-activation patterns (synergies) to stabilize the agent. By reducing the effective action space, the agent can focus on functional movements rather than individual muscle activations.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-2xl mb-8">
+                            <p class="text-blue-900 font-semibold text-sm leading-relaxed">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                We use 120 synergies which explain > 60% of muscle activations from our muscle activations sample.
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-400 italic">"Trajectories are collected and decomposed into a synergy matrix <strong>S</strong>. The final action is a linear combination of synergistic and raw muscle actions."</p>
+
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-microscope mr-3 text-blue-600"></i>
+                            Methodology (<a href="#ref-2" class="text-blue-600 hover:underline">SAR [2]</a>)
+                        </h3>
+                        
+                        <div class="relative pl-8 border-l-2 border-gray-100 space-y-8">
+                            <!-- Play Phase -->
+                            <div class="relative">
+                                <div class="absolute -left-[41px] top-0 bg-white p-1">
+                                    <span class="flex items-center justify-center w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] font-bold">1</span>
+                                </div>
+                                <h4 class="font-bold text-gray-700 text-base uppercase tracking-wide">Play Phase</h4>
+                                <p class="text-base text-gray-600 mt-1">
+                                    Simple PPO training with 275 action space. Collect muscle activation trajectories and apply PCA+ICA to produce the most important synergies.
+                                </p>
+                            </div>
+
+                            <!-- Training Phase -->
+                            <div class="relative">
+                                <div class="absolute -left-[41px] top-0 bg-white p-1">
+                                    <span class="flex items-center justify-center w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] font-bold">2</span>
+                                </div>
+                                <h4 class="font-bold text-gray-700 text-base uppercase tracking-wide">Training Phase</h4>
+                                <p class="text-base text-gray-600 mt-1">
+                                    Train the model using a combined synergy and muscle action space for more stable control.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Extraction Diagram -->
+                <div class="lg:w-64 w-full order-1 lg:order-2">
+                    <div class="bg-white p-5 rounded-3xl border border-gray-200">
+                        <img src="images/synergy_extraction.png" alt="Synergy Extraction Pipeline" class="w-full rounded-2xl">
+                        <p class="text-[11px] text-gray-500 mt-4 text-center leading-tight px-2">
+                            Decomposition of muscle activation trajectories into functional synergies via PCA and ICA.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Two Columns for Plots (Uneven) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 bg-white p-4 rounded-2xl border border-gray-100">
+                    <img src="images/synergy.png" alt="Synergy Usage" class="w-full rounded-lg">
+                    <p class="text-xs text-center text-gray-400 mt-3 italic">Integration of synergies into the low-level action space with $\phi = 0.8$</p>
+                </div>
+                <div class="md:col-span-7 bg-white p-4 rounded-2xl border border-gray-100">
+                    <img src="images/vaf_synergy.png" alt="VAF Synergy Plot" class="w-full rounded-lg">
+                    <p class="text-xs text-center text-gray-400 mt-3 italic">Variance Accounted For (VAF) across different numbers of synergies</p>
                 </div>
             </div>
         </section>
@@ -168,74 +335,335 @@
         <!-- Optimizing Exploration Space -->
         <section class="mb-16">
             <h2 class="section-title text-2xl">Optimizing Exploration Space</h2>
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="flex-1 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i class="fas fa-braille mr-2 text-blue-500"></i> Lattice Method</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
-                        Standard Gaussian noise is insufficient for high-dimensional MSK control. We implement the Lattice method using generalized time-correlated noise for structured exploration.
-                    </p>
-                    <div class="text-xs font-mono bg-gray-50 p-3 rounded text-gray-700">
-                        a = (W + P<sub>o</sub> + WP<sub>c</sub>) x
-                    </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <!-- Left: Description Bullet Points -->
+                <div class="space-y-4">
+                    <ul class="space-y-4 text-gray-600 list-disc pl-5">
+                        <li class="content-text text-base mb-0">
+                            <strong>Standard Gaussian noise</strong> is insufficient for high-dimensional MSK control.
+                        </li>
+                        <li class="content-text text-base mb-0">
+                            Following the success of <strong>Lattice method</strong> in <a href="#ref-3" class="text-blue-600 hover:underline">MyoChallenge 2023 [3]</a>, we integrate generalized <strong>time-correlated noise</strong> for structured exploration in our PPO training.
+                        </li>
+                        <li class="content-text text-base mb-0">
+                            Unlike conventional PPO, which applies independent Gaussian noise to each action dimension, Lattice introduces <strong>correlated noise across both action and latent spaces</strong>, with a <strong>learnable noise covariance</strong> that captures inter-dimensional dependencies.
+                        </li>
+                        <li class="content-text text-base mb-0">
+                            The noise is sampled <strong>once every T timesteps</strong>, promoting temporally coherent exploration.
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex-1 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i class="fas fa-vial mr-2 text-blue-500"></i> Structured Perturbations</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
-                        We add learnable perturbation matrices in both muscle-space (output) and latent-space (context), enabling the agent to explore coordinated movements over time.
-                    </p>
+
+                <!-- Right: Formulas Card -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 space-y-6">
+                    <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wider flex items-center">
+                        <i class="fas fa-braille mr-2 text-blue-500"></i> Lattice Noise Model
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase mb-2">Stuctured Action</p>
+                            <div class="bg-gray-50 p-3 rounded-lg text-center">
+                                \[ \mathbf{a} = (\mathbf{W} + \mathbf{P}_a + \mathbf{W}\mathbf{P}_x)\mathbf{x} \]
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase mb-2">Noise Distributions</p>
+                            <div class="bg-gray-50 p-3 rounded-lg text-center space-y-2">
+                                \[ (\mathbf{P}_a)_{i,j} \sim \mathcal{N}(0, (\mathbf{\Sigma}_a)_{i,j}) \]
+                                \[ (\mathbf{P}_x)_{i,j} \sim \mathcal{N}(0, (\mathbf{\Sigma}_x)_{i,j}) \]
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Results -->
         <section class="mb-16">
-            <h2 class="section-title text-2xl text-center mb-10">Results</h2>
+            <h2 class="section-title text-2xl text-center mb-12">Experimental Results</h2>
             
-            <div class="mb-12">
-                <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">Training Rewards</h3>
-                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
-                    <img src="results/training_reward.png" alt="Training Rewards" class="w-full rounded-lg">
+            <!-- 1. Learning Curve -->
+            <div class="mb-20">
+                <h3 class="text-xl font-bold mb-8 text-gray-800 flex items-center">
+                    <i class="fas fa-chart-line mr-3 text-blue-600"></i>
+                    Learning Curves
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100">
+                        <img src="results/training_reward.png" alt="Training Rewards" class="w-full rounded-lg">
+                        <p class="text-xs text-center text-gray-400 mt-4 italic text-balance">Training Step Rewards: Baseline PPO fails to learn, while hierarchical models show rapid convergence.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100">
+                        <img src="results/eval_train.png" alt="Evaluation during Training" class="w-full rounded-lg">
+                        <p class="text-xs text-center text-gray-400 mt-4 italic text-balance">Evaluation Success Rate: Hierarchical variants consistently reach ~94% success early in training.</p>
+                    </div>
                 </div>
-                <p class="text-xs text-center text-gray-400 mt-4">PPO baselines failed completely, while hierarchical models with structured exploration achieved high performance.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">High-Level Policy Eval</h3>
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
-                        <img src="results/hlp_eval.png" alt="HLP Evaluation" class="w-full rounded-lg">
-                    </div>
-                    <p class="text-xs text-gray-400 mt-4 text-center">The physics-based HLP achieves 91.5% success on the hardest difficulty levels.</p>
+            <!-- 2. Phase 1 Results -->
+            <div class="mb-16">
+                <h3 class="text-xl font-bold mb-8 text-gray-800 flex items-center">
+                    <i class="fas fa-trophy mr-3 text-blue-600"></i>
+                    Phase 1 Performance Analysis
+                </h3>
+                
+                <!-- Bar Chart -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 mb-10">
+                    <img src="results/final_eval.png" alt="Success Rate Comparison (Phase 1)" class="w-full rounded-lg">
+                    <p class="text-xs text-center text-gray-400 mt-4 italic">Comparison of Success Rate vs. Control Effort across all models</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-6 text-gray-700 border-b border-gray-100 pb-2">Final Evaluation</h3>
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-md">
-                        <img src="results/final_eval.png" alt="Final Evaluation" class="w-full rounded-lg">
+
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-12">
+                    <!-- Baseline PPO -->
+                    <div class="bg-red-50 border-t-4 border-red-400 p-4 rounded-b-xl">
+                        <div class="flex items-center text-red-600 mb-2">
+                            <i class="fas fa-times-circle mr-2"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">Baseline PPO</span>
+                        </div>
+                        <div class="text-4xl font-black text-red-500 mb-1">0%</div>
+                        <p class="text-[12px] text-red-800 leading-tight">Complete failure - cannot learn effective policy in high-dimensional space.</p>
                     </div>
-                    <p class="text-xs text-gray-400 mt-4 text-center">Hierarchical models with Synergy or Lattice achieve a near-optimal ~94% success rate.</p>
+                    
+                    <!-- PPO + Synergy -->
+                    <div class="bg-blue-50 border-t-4 border-blue-400 p-4 rounded-b-xl">
+                        <div class="flex items-center text-blue-600 mb-2">
+                            <i class="fas fa-arrow-up mr-2 text-[12px]"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">PPO + Synergy</span>
+                        </div>
+                        <div class="text-4xl font-black text-blue-500 mb-1">40%</div>
+                        <p class="text-[12px] text-blue-800 leading-tight">Significant improvement - action space reduction helps stabilization.</p>
+                    </div>
+
+                    <!-- PPO + Lattice -->
+                    <div class="bg-blue-50 border-t-4 border-blue-400 p-4 rounded-b-xl">
+                        <div class="flex items-center text-blue-600 mb-2">
+                            <i class="fas fa-arrow-up mr-2 text-[12px]"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">PPO + Lattice</span>
+                        </div>
+                        <div class="text-4xl font-black text-blue-500 mb-1">56%</div>
+                        <p class="text-[12px] text-blue-800 leading-tight">Superior to synergy - structured exploration is more effective for MSK.</p>
+                    </div>
+
+                    <!-- Hierarchical + Syn -->
+                    <div class="bg-pink-50 border-t-4 border-pink-400 p-4 rounded-b-xl">
+                        <div class="flex items-center text-pink-600 mb-2">
+                            <i class="fas fa-star mr-2 text-[12px]"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">Hierarchical + Syn</span>
+                        </div>
+                        <div class="text-4xl font-black text-pink-500 mb-1">~94%</div>
+                        <p class="text-[12px] text-pink-800 leading-tight">Near-optimal performance with hierarchical architecture.</p>
+                    </div>
+
+                    <!-- Hierarchical + Lat -->
+                    <div class="bg-pink-50 border-t-4 border-pink-400 p-4 rounded-b-xl">
+                        <div class="flex items-center text-pink-600 mb-2">
+                            <i class="fas fa-trophy mr-2 text-[10px]"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">Hierarchical + Lat</span>
+                        </div>
+                        <div class="text-4xl font-black text-pink-500 mb-1">~94%</div>
+                        <p class="text-[10px] text-pink-800 leading-tight">Best balance of performance and energy efficiency.</p>
+                    </div>
+                </div>
+
+                <!-- Model Performance Samples -->
+                <div class="mb-12">
+                    <h3 class="text-xl font-bold mb-8 text-gray-800 flex items-center">
+                        <i class="fas fa-play-circle mr-3 text-blue-600"></i>
+                        Model Performance Samples
+                    </h3>
+                    
+                    <div class="space-y-10">
+                        <!-- Row 1: Non-Hierarchical -->
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4 border-l-4 border-gray-300 pl-3">Non-Hierarchical Policies</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/ppo.gif" alt="PPO" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">PPO</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/ppo_sarl.gif" alt="PPO + Synergy" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">PPO + Synergy</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/ppo_lattice.gif" alt="PPO + Lattice" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">PPO + Lattice</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Hierarchical -->
+                        <div>
+                            <h4 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4 border-l-4 border-blue-400 pl-3">Hierarchical Policies (Proposed)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/h_ppo.gif" alt="Hierarchical PPO" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">H-PPO</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/h_ppo_sarl.gif" alt="Hierarchical + Synergy" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">H-PPO + Synergy</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-gray-100">
+                                    <img src="samples/h_ppo_lattice.gif" alt="Hierarchical + Lattice" class="w-full rounded-lg mb-2">
+                                    <p class="text-[11px] font-bold text-center text-gray-600 uppercase">H-PPO + Lattice</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussion Box -->
+                <div class="bg-gray-900 text-white p-8 rounded-3xl">
+                    <h4 class="text-lg font-bold mb-6 flex items-center text-blue-400 uppercase tracking-widest">
+                        <i class="fas fa-comments mr-3"></i> Discussion & Findings
+                    </h4>
+                    <div class="space-y-8 text-sm text-gray-300 leading-relaxed">
+                        <!-- synergy + latent -->
+                        <div>
+                            <h5 class="text-white font-bold mb-2 flex items-center">
+                                <i class="fas fa-plus-circle mr-2 text-blue-500"></i>
+                                Synergy Action and Latent Exploration improves baseline PPO
+                            </h5>
+                            <p>
+                                Augmenting the action space with <strong>Muscle Synergy</strong> stabilizes the agent by reducing the action space, enabling the agent to achieve a <span class="text-blue-400">success rate of 40%</span> compared to baseline PPO of 0%. Implementing <strong>Latent exploration</strong> improves the model more significantly, achieving a <span class="text-blue-400">56% success rate</span>.
+                            </p>
+                        </div>
+
+                        <!-- hierarchical -->
+                        <div>
+                            <h5 class="text-white font-bold mb-2 flex items-center">
+                                <i class="fas fa-layer-group mr-2 text-blue-500"></i>
+                                Hierarchical Architecture with Synergy or Latent Exploration Achieves Near-Optimal Results
+                            </h5>
+                            <p>
+                                The proposed <strong>Hierarchical PPO architecture</strong> consistently outperforms standard PPO baselines on both synergy and latent exploration models, achieving a <span class="text-blue-400">~94% success rate</span> compared to only 40%–60% for non-hierarchical variants. In contrast, hierarchical architectures without any optimization of the action or exploration space fail to achieve successful results.
+                            </p>
+                        </div>
+
+                        <!-- control effort -->
+                        <div>
+                            <h5 class="text-white font-bold mb-2 flex items-center">
+                                <i class="fas fa-bolt mr-2 text-blue-500"></i>
+                                Latent Exploration Reduces Control Effort
+                            </h5>
+                            <p>
+                                While both hierarchical methods achieve high success, the <strong>Lattice approach is the most efficient solution</strong>; it matches the top-tier performance of Synergy but requires significantly less control effort.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Conclusion -->
-        <section class="mb-12 bg-gray-900 text-white p-8 rounded-2xl shadow-lg">
-            <h2 class="text-xl font-bold mb-6 flex items-center">
-                <i class="fas fa-lightbulb mr-3 text-yellow-400"></i> Key Findings
-            </h2>
-            <ul class="space-y-4 text-gray-300 text-base">
-                <li class="flex items-start">
-                    <span class="text-white font-semibold mr-2 min-w-[140px]">Inductive Bias:</span>
-                    <span>Muscle Synergy & Lattice exploration are essential for mastering complex MSK systems.</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="text-white font-semibold mr-2 min-w-[140px]">Hierarchy:</span>
-                    <span>Optimized action or exploration spaces are required for the hierarchical architecture to function effectively.</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="text-white font-semibold mr-2 min-w-[140px]">Lattice Method:</span>
-                    <span>Offers the best balance of task success and minimal control effort.</span>
-                </li>
-            </ul>
+        <!-- Conclusion & Future Work -->
+        <section class="mb-16 space-y-8">
+            <!-- Key Findings -->
+            <div class="bg-gray-900 text-white p-8 rounded-3xl border border-gray-800">
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-lightbulb mr-3 text-yellow-400"></i> Key Findings
+                </h2>
+                <ul class="space-y-4 text-gray-300 text-base">
+                    <li class="flex items-start">
+                        <span class="text-white font-semibold mr-2 min-w-[140px]">Inductive Bias:</span>
+                        <span>Integrating inductive bias directly into the action and exploration spaces (<a href="#ref-2" class="text-blue-400 hover:underline">Synergy [2]</a> & <a href="#ref-3" class="text-blue-400 hover:underline">Lattice [3]</a>) significantly enhances performance when mastering complex, over-actuated musculoskeletal systems.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-white font-semibold mr-2 min-w-[140px]">Hierarchy:</span>
+                        <span>Optimized action or exploration spaces are required for the hierarchical architecture to function effectively.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-white font-semibold mr-2 min-w-[140px]">Lattice Method:</span>
+                        <span>Offers the best balance of task success and minimal control effort (<a href="#ref-3" class="text-blue-400 hover:underline">Lattice [3]</a>).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Limitations -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100">
+                    <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-3 text-orange-500"></i> Limitations
+                    </h2>
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider">Adaptability Challenges</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            The model currently struggles in Phase 2 environments featuring random ball velocity and friction. This performance gap is primarily attributed to:
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center"><i class="fas fa-minus mr-2 text-gray-300"></i> Timing mismatches between high and low-level policies</li>
+                            <li class="flex items-center"><i class="fas fa-minus mr-2 text-gray-300"></i> Insufficient curriculum granularity during training (<a href="#ref-4" class="text-blue-600 hover:underline">Curriculum RL [4]</a>)</li>
+                            <li class="flex items-center"><i class="fas fa-minus mr-2 text-gray-300"></i> Constraints in training duration and model scale</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Future Directions -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100">
+                    <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-map-signs mr-3 text-blue-500"></i> Future Directions
+                    </h2>
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider">Automated HLP Generation</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            While our current High-Level Policy is manually designed, future work will explore <strong>iterative LLM-based self-improvement</strong>. In this framework, heuristic policies are generated, evaluated, and refined through a reflection mechanism to achieve more robust and generalized control strategies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BibTeX Citation -->
+        <section class="mb-16">
+            <h2 class="section-title text-2xl">BibTeX Citation</h2>
+            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <pre class="text-xs text-gray-700 overflow-x-auto"><code>@article{rendy2025myopong,
+  title={MyoPong: Goal-Conditioned Synergistic Action and Latent Exploration for Musculoskeletal Table Tennis Control with Training-Free High-Level Policies},
+  author={Rendy, Alfonsus Rodriques and Tjitrahardja, Eduardus and Prasetya, Valentino},
+  journal={Tsinghua University Advanced Machine Learning Symposium Fall 2025},
+  year={2025},
+  url={https://github.com/alfonsusrr/MyoPong}
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- References -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl">References</h2>
+            <div class="space-y-6">
+                <div id="ref-1" class="flex gap-4 items-start content-text text-sm">
+                    <span class="font-bold text-gray-400 min-w-[24px]">[1]</span>
+                    <span>
+                        MyoSuite Documentation, 
+                        <a href="https://myosuite.readthedocs.io/en/latest/challenge-doc2025.html" target="_blank" class="text-blue-600 hover:underline">https://myosuite.readthedocs.io/en/latest/challenge-doc2025.html</a>
+                    </span>
+                </div>
+                <div id="ref-2" class="flex gap-4 items-start content-text text-sm">
+                    <span class="font-bold text-gray-400 min-w-[24px]">[2]</span>
+                    <span>
+                        Cameron Berg, Vittorio Caggiano, and Vikash Kumar. <strong>Sar: generalization of physiological agility and dexterity via synergistic action representation</strong>. 
+                        <em>Auton. Robots</em>, 48(8), November 2024.
+                        <a href="https://arxiv.org/abs/2307.03716" target="_blank" class="text-blue-600 ml-1"><i class="fas fa-external-link-alt text-[10px]"></i></a>
+                    </span>
+                </div>
+                <div id="ref-3" class="flex gap-4 items-start content-text text-sm">
+                    <span class="font-bold text-gray-400 min-w-[24px]">[3]</span>
+                    <span>
+                        Alberto Silvio Chiappa, Alessandro Marin Vargas, Ann Huang, and Alexander Mathis. <strong>Latent exploration for reinforcement learning</strong>. 
+                        In <em>Advances in Neural Information Processing Systems</em>, volume 36, pages 56508–56530. 2023.
+                        <a href="https://arxiv.org/abs/2305.20065" target="_blank" class="text-blue-600 ml-1"><i class="fas fa-external-link-alt text-[10px]"></i></a>
+                    </span>
+                </div>
+                <div id="ref-4" class="flex gap-4 items-start content-text text-sm">
+                    <span class="font-bold text-gray-400 min-w-[24px]">[4]</span>
+                    <span>
+                        Alberto Silvio Chiappa, Pablo Tano, Nisheet Patel, Abigaïl Ingster, Alexandre Pouget, and Alexander Mathis. <strong>Acquiring musculoskeletal skills with curriculum-based reinforcement learning</strong>. 
+                        <em>Neuron</em>, 112:3969–3983.e5, 2024.
+                        <a href="https://www.cell.com/action/showPdf?pii=S0896-6273%2824%2900650-0" target="_blank" class="text-blue-600 ml-1"><i class="fas fa-external-link-alt text-[10px]"></i></a>
+                    </span>
+                </div>
+            </div>
         </section>
 
     </main>
